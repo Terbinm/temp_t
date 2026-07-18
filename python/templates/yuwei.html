@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鄭淯蔚 | Personal Portfolio</title>
+    <style>
+        /* 基礎全域樣式重設 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        body {
+            background-color: #0f172a; /* 深藍底色，沉穩專業 */
+            color: #f8fafc;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 個人名片外框 */
+        .profile-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px); /* 微調懸浮感 */
+        }
+
+        /* 頭貼區域 */
+        .avatar-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #38bdf8; /* 天藍色外框 */
+            background-color: #334155; /* 未放照片前的預設底色 */
+        }
+
+        /* 名字與職稱 */
+        .name {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .title {
+            font-size: 1rem;
+            color: #38bdf8; /* 亮色凸顯職稱 */
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        /* 分割線 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            margin-bottom: 25px;
+        }
+
+        /* 自我介紹內文 */
+        .bio {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            text-align: justify;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        /* 標籤/技能區 */
+        .tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+
+        .tag {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* 行動呼籲/聯絡按鈕 */
+        .cta-btn {
+            display: inline-block;
+            width: 100%;
+            background: linear-gradient(135deg, #38bdf8, #0369a1);
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <!-- 頭像區：可自行將 src 替換為你的照片網址或本地路徑 -->
+        <div class="avatar-container">
+            <img class="avatar" src="/image/yuwei.jpg" alt="鄭淯蔚的頭像">
+        </div>
+
+        <!-- 基本資料 -->
+        <h1 class="name">鄭淯蔚</h1>
+        <div class="title">探索者 / 終身學習者</div>
+        
+        <div class="divider"></div>
+
+        <!-- 自我介紹 -->
+        <p class="bio">
+            你好，我是鄭淯蔚！我熱衷於探索新事物與解決問題。這裡是我在數位世界的一隅，記錄著我的成長與熱情。不論是在專業領域的鑽研，還是生活中的創意碰撞，我都渴望與夥伴們一起創造出有價值的成果。歡迎與我聯絡，聊聊任何有趣的合作機會！
+        </p>
+
+        <!-- 專長或興趣標籤 -->
+        <div class="tags">
+            <span class="tag"># 創新思考</span>
+            <span class="tag"># 團隊協作</span>
+            <span class="tag"># 持續學習</span>
+        </div>
+
+        <!-- 聯絡按鈕 -->
+        <a href="mailto:your-email@example.com" class="cta-btn">與我聯絡</a>
+    </div>
+
+</body>
+</html>
