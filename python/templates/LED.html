@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>羅翊迪 | Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --grid-color: #1a1a1a;
+            --accent-color: #00f2ff;
+            --text-color: #e0e0e0;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 50px;
+            background-image: radial-gradient(var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .profile-card {
+            border: 1px solid #333;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            position: relative;
+        }
+        .header { border-bottom: 1px solid var(--accent-color); padding-bottom: 20px; margin-bottom: 20px; }
+        h1 { margin: 0; color: var(--accent-color); letter-spacing: 2px; }
+        .tag { font-size: 0.9em; color: #888; }
+        .content { line-height: 1.8; }
+        .footer { margin-top: 40px; font-size: 0.8em; color: #555; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+    <div class="header">
+        <h1>羅翊迪</h1>
+        <div class="tag">SOFTWARE ENGINEER | AI RESEARCHER | SYSTEM ARCHITECT</div>
+    </div>
+    <div class="content">
+        <p>> 國立高雄科技大學資訊管理研究所碩士生。<br>
+        > 專注於工業 4.0 智慧維運系統、醫療感測分析及精密儀器開發。<br>
+        > 擅長將 AI 演算法與分散式架構應用於實際產業痛點，擁有豐富的軟硬體整合與全端系統開發經驗。</p>
+
+        <p><strong>榮譽紀錄：</strong><br>
+        曾帶領團隊榮獲台灣尤努斯創新獎與育秀盃金獎等全國性競賽冠軍。</p>
+
+        <p><strong>專業領域：</strong><br>
+        [邊緣運算 / IoT 系統整合 / 分散式架構 / 產學技術協作]</p>
+    </div>
+    <div class="footer">
+        system_status: ready // interface_ready
+    </div>
+</div>
+
+</body>
+</html>

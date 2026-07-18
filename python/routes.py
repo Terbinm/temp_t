@@ -7,6 +7,10 @@ main_bp = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main_bp.route('/LED')
+def led():
+    return render_template('LED.html')
+
 @main_bp.route('/image/<path:filename>')
 def serve_image(filename):
     return send_from_directory('../image', filename)
