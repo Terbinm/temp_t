@@ -11,6 +11,10 @@ def index():
 def led():
     return render_template('LED.html')
 
+@main_bp.route('/willy')
+def willy():
+    return render_template('willy.html')
+
 @main_bp.route('/image/<path:filename>')
 def serve_image(filename):
     return send_from_directory('../image', filename)
