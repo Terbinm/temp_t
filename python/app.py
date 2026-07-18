@@ -18,7 +18,7 @@ def create_app():
     print("栖栖")
     print("晚餐要吃什麼")
     print("haha")
-    print("我們一起學貓叫")
+    print("我們")
     print(f"DEBUG: 讀取到的 DATABASE_URL 為: {db_url}")
     # -----------------------------
 
