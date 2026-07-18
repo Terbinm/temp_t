@@ -18,3 +18,4 @@ def willy():
 @main_bp.route('/image/<path:filename>')
 def serve_image(filename):
     return send_from_directory('../image', filename)
+
