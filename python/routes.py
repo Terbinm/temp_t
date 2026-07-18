@@ -15,8 +15,12 @@ def led():
 def willy():
     return render_template('willy.html')
 
-@main_bp.route('/yuwei.html')
-def yuwei_page():
+@main_bp.route('/hsiang')
+def hsiang():
+    return render_template('hsiang.html')
+
+@main_bp.route('/yuwei')
+def yuwei():
     return render_template('yuwei.html')
 
 @main_bp.route('/image/<path:filename>')
