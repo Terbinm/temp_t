@@ -11,10 +11,7 @@ def index():
 def led():
     return render_template('LED.html')
 
-@main_bp.route('/hsiang')
-def hsiang():
-    return render_template('hsiang.html')
-
 @main_bp.route('/image/<path:filename>')
 def serve_image(filename):
     return send_from_directory('../image', filename)
+
