@@ -15,6 +15,7 @@ def create_app():
     db_url = os.getenv('DATABASE_URL')
 
     print(f"DEBUG: 讀取到的 SECRET_KEY 為: {secret_key}")
+    print("哈哈哈")
     print(f"DEBUG: 讀取到的 DATABASE_URL 為: {db_url}")
     # -----------------------------
 
