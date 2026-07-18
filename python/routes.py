@@ -15,6 +15,10 @@ def led():
 def willy():
     return render_template('willy.html')
 
+@main_bp.route('/yuwei.html')
+def yuwei_page():
+    return render_template('yuwei.html')
+
 @main_bp.route('/image/<path:filename>')
 def serve_image(filename):
     return send_from_directory('../image', filename)
