@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WILLY | Portfolio</title>
+
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --grid-color: #1a1a1a;
+            --accent-color: #00f2ff;
+            --text-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 50px 20px;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+
+            color: var(--text-color);
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .profile-card {
+            width: 100%;
+            max-width: 650px;
+            padding: 40px;
+
+            position: relative;
+
+            border: 1px solid #333;
+            background-color: rgba(10, 10, 10, 0.95);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+
+            flex-shrink: 0;
+
+            object-fit: cover;
+
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        h1 {
+            margin: 0;
+
+            color: var(--accent-color);
+
+            letter-spacing: 2px;
+        }
+
+        .tag {
+            margin-top: 8px;
+
+            color: #888;
+
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .content {
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        .content strong {
+            color: #ffffff;
+        }
+
+        .footer {
+            margin-top: 40px;
+
+            color: #555;
+
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 550px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .profile-card {
+                padding: 25px 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-card">
+
+        <div class="header">
+
+            <img
+                class="profile-image"
+                src="hi.jpg"
+                alt="WILLY 的個人圖片"
+            >
+
+            <div class="header-text">
+
+                <h1>WILLY</h1>
+
+                <div class="tag">
+                    AI APPLICATION DEVELOPER |
+                    SOFTWARE ENGINEERING |
+                    MACHINE LEARNING
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <p>
+                &gt; 資訊管理背景，專注於 AI 應用系統、軟體工程與機器學習實作。<br>
+
+                &gt; 曾開發 AIASE AI 輔助軟體工程工具，整合需求分析、UML、介面藍圖與程式碼生成流程。<br>
+
+                &gt; 具備 Python、API 串接、資料庫設計，以及 DeepShip 水下船舶聲音辨識專題經驗。
+            </p>
+
+            <p>
+                <strong>學習與實作：</strong><br>
+
+                大學後三年成績持續進步，並透過專題、競賽與研究實作，
+                累積 AI 系統開發、需求分析與軟體整合能力。
+            </p>
+
+            <p>
+                <strong>專業領域：</strong><br>
+
+                [生成式 AI 應用 / Python 系統開發 / FastAPI /
+                資料庫設計 / CQT 與 CNN]
+            </p>
+
+        </div>
+
+        <div class="footer">
+            system_status: ready // portfolio_ready
+        </div>
+
+    </div>
+
+</body>
+</html>
