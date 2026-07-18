@@ -16,6 +16,7 @@ def create_app():
 
     print(f"DEBUG: 讀取到的 SECRET_KEY 為: {secret_key}")
     print("LED")
+    print("hsiang")
     print(f"DEBUG: 讀取到的 DATABASE_URL 為: {db_url}")
     # -----------------------------
 

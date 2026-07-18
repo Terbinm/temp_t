@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祥祥 (Yu-Hsiang Chang) | Resume & Portfolio</title>
+
+    <!-- MathJax for formula rendering -->
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+    <style>
+        :root {
+            --bg-color: #eaddcf;
+            /* 復古老紙張背景色 */
+            --card-bg: #f5f0e6;
+            /* 卡片主體米白色 */
+            --border-color: #4a3623;
+            /* 深咖啡色邊框與文字 */
+            --accent-color: #8b3a3a;
+            /* 復古酒紅色 */
+            --text-color: #3b2b1f;
+            /* 易讀的深棕色 */
+            --muted-color: #7a634e;
+            /* 次要文字顏色 */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-image: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(74, 54, 35, 0.03) 2px,
+                    rgba(74, 54, 35, 0.03) 4px);
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-card {
+            background-color: var(--card-bg);
+            border: 4px double var(--border-color);
+            width: 100%;
+            max-width: 850px;
+            padding: 50px 60px;
+            position: relative;
+            box-shadow: 12px 12px 0px rgba(74, 54, 35, 0.2);
+        }
+
+        /* ===== HEADINGS ===== */
+        .header {
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            color: var(--accent-color);
+            letter-spacing: 3px;
+            font-size: 2.2em;
+            font-weight: normal;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.4em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            color: var(--border-color);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* ===== BLOCKQUOTE ===== */
+        blockquote {
+            background-color: rgba(139, 58, 58, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #5a4634;
+        }
+
+        blockquote p {
+            margin: 0;
+        }
+
+        blockquote strong {
+            color: var(--accent-color);
+            font-weight: normal;
+        }
+
+        blockquote em {
+            color: var(--muted-color);
+        }
+
+        /* ===== TEXT & LINKS ===== */
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            font-weight: bold;
+            color: var(--border-color);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--muted-color);
+        }
+
+        del {
+            color: #a89f91;
+            text-decoration: line-through;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dotted var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: var(--accent-color);
+            color: var(--card-bg);
+        }
+
+        /* ===== BADGES (Retro Style) ===== */
+        .badges {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .badges span {
+            display: inline-block;
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            margin: 4px;
+            font-size: 0.85em;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: rgba(74, 54, 35, 0.05);
+            color: var(--border-color);
+            box-shadow: 2px 2px 0px rgba(74, 54, 35, 0.1);
+        }
+
+        /* ===== TABLE ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 2px solid var(--border-color);
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(74, 54, 35, 0.08);
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: rgba(74, 54, 35, 0.03);
+        }
+
+        /* ===== LISTS & TASKS ===== */
+        ul,
+        ol {
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .task-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .task-item {
+            margin-bottom: 20px;
+        }
+
+        .task-item input[type="checkbox"] {
+            accent-color: var(--border-color);
+            margin-right: 8px;
+            transform: scale(1.2);
+            vertical-align: middle;
+        }
+
+        .task-item ul {
+            margin-top: 8px;
+            padding-left: 30px;
+            list-style-type: square;
+        }
+
+        /* ===== CODE & MATH ===== */
+        code {
+            background: rgba(74, 54, 35, 0.08);
+            color: var(--accent-color);
+            padding: 2px 6px;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 2px;
+            font-size: 0.9em;
+        }
+
+        .math {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(74, 54, 35, 0.03);
+            border: 1px dashed var(--border-color);
+        }
+
+        /* ===== MISC ===== */
+        hr {
+            border: none;
+            border-top: 1px dashed var(--border-color);
+            margin: 40px 0;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 0.85em;
+            color: var(--muted-color);
+            text-align: center;
+            border-top: 2px dashed var(--border-color);
+            padding-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* ===== EASTER EGG (Retro Adapted) ===== */
+        #egg-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9998;
+            pointer-events: none;
+        }
+
+        #egg-player {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--card-bg);
+            border: 3px double var(--border-color);
+            box-shadow: 8px 8px 0px rgba(74, 54, 35, 0.2);
+            z-index: 10000;
+            align-items: center;
+            padding: 10px 20px 10px 10px;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #egg-player:hover {
+            transform: scale(1.03);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(120px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .vinyl-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #333 30%, #111 100%);
+            position: relative;
+            margin-right: 15px;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .vinyl-label-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: url('https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            filter: sepia(0.6) contrast(1.2);
+            /* 復古泛黃濾鏡 */
+        }
+
+        .vinyl-center {
+            width: 12px;
+            height: 12px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            position: absolute;
+            z-index: 2;
+            border: 1px solid var(--border-color);
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #egg-player .egg-text {
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        #egg-player .egg-sub {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            color: var(--muted-color);
+            text-transform: uppercase;
+        }
+
+        #yt-container {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 320px;
+            height: 180px;
+            z-index: 10001;
+            border: 4px double var(--border-color);
+            background: #000;
+            display: none;
+            box-shadow: 8px 8px 0px rgba(74, 54, 35, 0.2);
+        }
+
+        .play-hint {
+            position: absolute;
+            z-index: 3;
+            color: white;
+            font-size: 20px;
+            text-shadow: 0 0 5px #000;
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .profile-card {
+                box-shadow: none;
+                border: 2px solid #000;
+            }
+
+            #egg-player,
+            #yt-container,
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-card">
+        <div class="header">
+            <h1>📝 祥祥 (Yu-Hsiang Chang)</h1>
+            <h3>個人網站 & 復古履歷</h3>
+        </div>
+
+        <blockquote>
+            <p><strong>資訊管理 | AI 應用開發 | ESG 永續轉型</strong><br />
+                <em>"將技術與永續結合，創造更大的社會影響力。"</em>
+            </p>
+        </blockquote>
+
+        <div class="badges">
+            <span>[ Python ]</span>
+            <span>[ Flask ]</span>
+            <span>[ Node.js ]</span>
+            <span>[ C# ]</span>
+            <span>[ Tableau ]</span>
+        </div>
+
+        <h2>🎓 1. 教育背景</h2>
+        <ul>
+            <li><strong>南台科技大學 (Southern Taiwan University of Science and Technology)</strong>
+                <ul>
+                    <li><code>2022 – 2026 (預計)</code></li>
+                    <li><em>資訊管理系</em> (Department of Information Management)</li>
+                    <li>主修資訊系統開發與管理，積極參與產學合作計畫。</li>
+                </ul>
+            </li>
+            <li><strong>復華中學 (Fuhwa High School)</strong>
+                <ul>
+                    <li><code>2019 – 2022</code></li>
+                    <li><em>應用外語系</em> (Department of Applied Foreign Languages)</li>
+                    <li>培養跨文化溝通能力與語言基礎。</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>🛠 2. 專業技能</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>領域</th>
+                    <th>技能細項</th>
+                    <th style="text-align: center;">熟悉程度</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>網頁設計</strong></td>
+                    <td>Flask (Python), C# MVC.NET, HTML/CSS/JS</td>
+                    <td style="text-align: center;">⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td><strong>程式設計</strong></td>
+                    <td>Python (LLM API), Cursor AI</td>
+                    <td style="text-align: center;">⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td><strong>數據分析</strong></td>
+                    <td>Tableau, Python, Data Cleaning</td>
+                    <td style="text-align: center;">⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td><strong>領域知識</strong></td>
+                    <td>碳盤查 (ISO 14064), ESG, 生成式 AI</td>
+                    <td style="text-align: center;">⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td><strong>語言能力</strong></td>
+                    <td>越南語 (中高級)、英語 (基礎)、中文 (母語)</td>
+                    <td style="text-align: center;">-</td>
+                </tr>
+            </tbody>
+        </table>
+        <blockquote>
+            <p>📌 <strong>備註：</strong> 持續探索更多前沿 AI 與綠能領域跨界應用，例如：透過自動化爬蟲整合各國 ESG 報告書進行大語言模型分析。</p>
+        </blockquote>
+
+        <h2>💼 3. 工作與專案經驗</h2>
+        <h3>3.1 遠傳電信 (Far EasTone) — 實習生</h3>
+        <ul>
+            <li><strong>期間</strong>：2025</li>
+            <li><strong>專案內容</strong>：基地台數位分身技術應用</li>
+            <li><strong>內容摘要</strong>：協助數位轉型專案，應用新興的<del>虛擬技術</del> <strong>數位分身技術 (Digital Twin)</strong> 於基地台電信基礎設施管理。
+            </li>
+        </ul>
+
+        <h3>3.2 ESG 與綠色轉型 — 產學合作</h3>
+        <ul>
+            <li><strong>專案內容</strong>：碳盤查服務計畫</li>
+            <li><strong>內容摘要</strong>：參與手工具套筒及螺帽扣件碳盤查計畫（ISO 14064），協助產業進行綠色營運轉型研究，編寫報告書並規劃減碳策略。</li>
+        </ul>
+
+        <h3>3.3 教學助理 (TA) — 2023 至今</h3>
+        <ul>
+            <li><strong>課程</strong>：中文閱讀與表達</li>
+            <li><strong>內容摘要</strong>：協助課程設計網頁與活動，包含依戀形式診斷測驗及情詩朗讀成果展等多媒體教學成果。</li>
+        </ul>
+
+        <h2>📜 4. 專業證照</h2>
+        <ol>
+            <li>Gemini Certification (2025)</li>
+            <li>TQC 人工智慧應用與技術 — 專業級 (2024)</li>
+            <li>EEC 企業電子化助理規劃師</li>
+            <li>EEC 企業資源規劃</li>
+            <li>EEC 網路行銷 (2025)</li>
+            <li>TQC 電子商務概論 — 專業級 (2024)</li>
+        </ol>
+
+        <h2>🏆 5. 競賽紀錄</h2>
+        <ul>
+            <li>2025 全國創新商業專題競賽</li>
+            <li>2025 屏東青年社會創新競賽</li>
+            <li>2024 雲林青年國際創業營隊</li>
+            <li>集點子競賽《快樂都老先修班》</li>
+        </ul>
+
+        <h2>🚀 6. 作品集</h2>
+        <p>以下是我的近期專案清單與進度：</p>
+        <ul class="task-list">
+            <li class="task-item">
+                <input type="checkbox" checked disabled> <strong>SROI 智能評析平台</strong>
+                <ul>
+                    <li>使用技術：<code>Python</code>, <code>LLM API</code>, <code>Flask</code></li>
+                    <li>目的：將社會投資報酬率 (SROI) 框架平台化，整合大語言模型 (LLM) 協助生成內容，提供企業數位化專案影響力預估工具。</li>
+                    <li><strong>SROI 理論公式</strong>：
+                        <div class="math">$$ SROI = \frac{\text{Net Present Value of Benefits}}{\text{Net Present Value
+                            of Investment}} $$</div>
+                    </li>
+                </ul>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" checked disabled> <strong>生命故事成果展</strong>
+                <ul>
+                    <li>使用技術：<code>HTML/CSS</code>, <code>Netlify</code>, <code>Design</code></li>
+                    <li>114-1 中文閱讀與表達課程的計畫成果網頁</li>
+                    <li><a href="https://lifestory1.netlify.app/">🌐 參觀網站</a></li>
+                </ul>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" checked disabled> <strong>依戀形式診斷測驗</strong>
+                <ul>
+                    <li>使用技術：<code>HTML/CSS</code>, <code>JavaScript</code>, <code>Interactive</code></li>
+                    <li>一款互動式網頁測驗，幫助學生了解自我依戀形式，提升自我認知。</li>
+                    <li><a
+                            href="https://kinncode.github.io/psychological-test/%E4%BE%9D%E6%88%80%E5%BD%A2%E5%BC%8F%E8%A8%BA%E6%96%B7%E6%B8%AC%E9%A9%97.html">👉
+                            點此體驗測驗</a></li>
+                </ul>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" checked disabled> <strong>情詩朗讀線上成果展</strong>
+                <ul>
+                    <li>使用技術：<code>HTML/CSS</code>, <code>Netlify</code>, <code>Multimedia</code></li>
+                    <li>中文閱讀與表達課程的線上成果展示平台，收錄學生的情詩朗讀作品。</li>
+                    <li><a href="https://lovework.netlify.app/">🎙️ 參觀展覽</a></li>
+                </ul>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" checked disabled> <strong>大數據分析與視覺化</strong>
+                <ul>
+                    <li>使用技術：<code>Tableau</code>, <code>Python</code></li>
+                    <li>使用 Python 進行資料清理，並透過 Tableau 建立儀表板，分析複雜數據集並提供商業洞察。</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="no-print">
+            <h2>🎁 隱藏彩蛋</h2>
+            <blockquote>
+                <p>本頁面藏有一個神祕的「<strong>復古黑膠唱片機</strong>」！<br />
+                    請直接在鍵盤上輸入：<br />
+                    <strong>「上上下下左右左右BA」</strong>！<br />
+                    <em>(建議開啟音效體驗復古驚喜)</em>
+                </p>
+            </blockquote>
+        </div>
+
+        <h2>📫 聯絡方式</h2>
+        <p>
+            📧 <strong>Email</strong>: <a href="mailto:hsiang305@gmail.com">hsiang305@gmail.com</a><br />
+            📱 <strong>Phone</strong>: <code>0960-537-991</code><br />
+            🌐 <strong>Website</strong>: <a href="https://kinnkinn.netlify.app/">kinnkinn.netlify.app</a>
+        </p>
+
+        <div class="footer">
+            © 2026 Yu-Hsiang Chang. Keep Exploring! // vintage_edition
+        </div>
+    </div>
+
+    <!-- Easter Egg: Konami Code & Vinyl Player -->
+    <div id="egg-overlay"></div>
+    <div id="yt-container"></div>
+    <div id="egg-player">
+        <div class="vinyl-container" id="vinyl-disc">
+            <div class="vinyl-label-img"></div>
+            <div class="vinyl-center"></div>
+            <div class="play-hint" id="play-hint-icon">▶</div>
+        </div>
+        <div id="egg-info-box">
+            <span class="egg-text">&#9835; Rickrolled!</span>
+            <span class="egg-sub" id="egg-status-text">Click to Play Music</span>
+        </div>
+    </div>
+
+    <script>
+        var ytApiReady = false;
+        var eggPlayer = null;
+        var eggTriggered = false;
+
+        // Load Tube API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() { ytApiReady = true; }
+
+        const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let kIdx = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (eggTriggered) return;
+            if (e.key === konami[kIdx] || e.key.toLowerCase() === konami[kIdx]) {
+                kIdx++;
+                if (kIdx === konami.length) {
+                    triggerEasterEgg();
+                    kIdx = 0;
+                }
+            } else {
+                kIdx = 0;
+            }
+        });
+
+        function triggerEasterEgg() {
+            eggTriggered = true;
+
+            // 1. Retro Confetti burst
+            const colors = ['#8b3a3a', '#4a3623', '#7a634e', '#d2b48c', '#a0522d'];
+            const overlay = document.getElementById('egg-overlay');
+            overlay.style.display = 'block';
+            for (let i = 0; i < 100; i++) {
+                let c = document.createElement('div');
+                c.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;';
+                c.style.width = (Math.random() * 10 + 5) + 'px';
+                c.style.height = (Math.random() * 10 + 5) + 'px';
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.top = '-20px';
+                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                overlay.appendChild(c);
+                let d = Math.random() * 3 + 2.5;
+                c.animate([
+                    { transform: 'translate3d(0,0,0) rotate(0deg)', opacity: 0.8 },
+                    { transform: 'translate3d(' + (Math.random() * 300 - 150) + 'px, 100vh, 0) rotate(' + (Math.random() * 1080) + 'deg)', opacity: 0 }
+                ], { duration: d * 1000, fill: 'forwards' });
+                setTimeout(() => c.remove(), d * 1000);
+            }
+
+            // 2. Show UI
+            const playerUI = document.getElementById('egg-player');
+            playerUI.style.display = 'flex';
+
+            // 3. Setup Player interaction
+            playerUI.onclick = function () {
+                const ytBox = document.getElementById('yt-container');
+                const statusText = document.getElementById('egg-status-text');
+                const hintIcon = document.getElementById('play-hint-icon');
+
+                if (!eggPlayer && ytApiReady) {
+                    ytBox.style.display = 'block';
+                    const params = {
+                        'autoplay': 1,
+                        'playsinline': 1,
+                        'controls': 1,
+                        'rel': 0,
+                        'enablejsapi': 1
+                    };
+                    if (window.location.protocol.startsWith('http')) {
+                        params.origin = window.location.origin;
+                    }
+
+                    eggPlayer = new YT.Player('yt-container', {
+                        height: '180',
+                        width: '320',
+                        videoId: 'dQw4w9WgXcQ',
+                        host: 'https://www.youtube-nocookie.com',
+                        playerVars: params,
+                        events: {
+                            'onReady': function (event) {
+                                event.target.playVideo();
+                                document.getElementById('vinyl-disc').style.animation = 'spin 2s linear infinite';
+                                statusText.innerText = "Enjoy the Classic!";
+                                hintIcon.style.display = 'none';
+                            },
+                        }
+                    });
+                } else if (eggPlayer) {
+                    const state = eggPlayer.getPlayerState();
+                    if (state === 1) {
+                        eggPlayer.pauseVideo();
+                        ytBox.style.display = 'none';
+                        document.getElementById('vinyl-disc').style.animationPlayState = 'paused';
+                    } else {
+                        eggPlayer.playVideo();
+                        ytBox.style.display = 'block';
+                        document.getElementById('vinyl-disc').style.animationPlayState = 'running';
+                    }
+                }
+            };
+
+            // Auto-trigger click
+            setTimeout(() => {
+                if (!eggPlayer) playerUI.click();
+            }, 500);
+        }
+    </script>
+
+</body>
+
+</html>
