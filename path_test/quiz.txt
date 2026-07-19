@@ -1,0 +1,28 @@
+
+開始路徑： cd {{project_root}}/path_test/A/甲
+[檔案路徑] C:\localfiles\t\path_test\B\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\B\乙\2.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\B\丙\1.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+
+answer：
+
+
+---
+開始路徑： cd {{project_root}}/path_test/A/甲
+[檔案路徑] C:\localfiles\t\path_test\C\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\B\乙\2.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\B\乙
+[檔案路徑] C:\localfiles\t\path_test\A\丙\1.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\C\丙
+
+answer：
+
+
+---
+開始路徑： cd {{project_root}}/path_test/A/甲
+[檔案路徑] C:\localfiles\t\path_test\A\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\A\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\B\乙
+[檔案路徑] C:\localfiles\t\path_test\A\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\C\丙
+
+answer：
+
+
+---
