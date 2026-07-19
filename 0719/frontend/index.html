@@ -1,24 +1,75 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>團隊自我介紹共享平台</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f4f7f6; color: #333; }
-        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .hidden { display: none; }
-        input, textarea, select { width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px; }
-        button:hover { background-color: #0056b3; }
-        .btn-group { margin-bottom: 20px; }
-        .member-btn { background-color: #6c757d; }
-        .member-btn.active { background-color: #28a745; }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-group {
+            margin-bottom: 20px;
+        }
+
+        .member-btn {
+            background-color: #6c757d;
+        }
+
+        .member-btn.active {
+            background-color: #28a745;
+        }
     </style>
 </head>
+
 <body>
 
-    <!-- 1. 登入區塊 -->
+    <!--
     <div id="login-section" class="card">
         <h2>系統核心登入 (第四個後端驗證)</h2>
         <p style="color: gray; font-size: 13px;">測試帳密：admin / admin123</p>
@@ -28,12 +79,12 @@
         <input type="password" id="password" placeholder="請輸入密碼">
         <button onclick="handleLogin()">登入系統</button>
         <p id="login-msg" style="color: red;"></p>
-    </div>
+    </div>-->
 
     <!-- 2. 主內容區塊 (登入後顯示) -->
     <div id="main-section" class="card hidden">
         <h2>歡迎來到成員自我介紹首頁</h2>
-        
+
         <!-- 切換成員後端按鈕 -->
         <div class="btn-group">
             <button class="member-btn" onclick="switchMember(8001, this)">同學 A (Port 8001)</button>
@@ -66,7 +117,7 @@
         async function handleLogin() {
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
-            
+
             try {
                 const res = await fetch(`${SYSTEM_URL}/api/system/login`, {
                     method: 'POST',
@@ -74,7 +125,7 @@
                     body: JSON.stringify({ username: u, password: p })
                 });
                 const data = await res.json();
-                
+
                 if (res.ok) {
                     document.getElementById('login-section').classList.add('hidden');
                     document.getElementById('main-section').classList.remove('hidden');
@@ -92,7 +143,7 @@
         async function switchMember(port, element) {
             currentMemberPort = port;
             document.getElementById('action-msg').innerText = '';
-            
+
             // 切換按鈕高亮狀態
             document.querySelectorAll('.member-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
@@ -113,7 +164,7 @@
         // 修改並儲存該成員的自我介紹 (呼叫對應的個人 Port)
         async function updateMemberData() {
             if (!currentMemberPort) return;
-            
+
             const payload = {
                 name: document.getElementById('member-name').value,
                 bio: document.getElementById('member-bio').value,
@@ -138,4 +189,5 @@
         }
     </script>
 </body>
+
 </html>
