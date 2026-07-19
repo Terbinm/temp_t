@@ -82,14 +82,30 @@
             transform: translateY(20px);
         }
 
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
         h2 {
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 8px;
             background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
+        }
+
+        .user-badge {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .subtitle {
@@ -134,6 +150,14 @@
             border-color: var(--accent-cyan);
             background: rgba(31, 41, 55, 0.8);
             box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15);
+        }
+
+        input:disabled,
+        textarea:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: rgba(17, 24, 39, 0.3);
+            border-color: rgba(255, 255, 255, 0.05);
         }
 
         textarea {
@@ -217,24 +241,25 @@
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
+        .permission-warning {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: var(--accent-rose);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         hr {
             border: 0;
             height: 1px;
             background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
             margin: 25px 0;
-        }
-
-        /* Error/Info messages styling */
-        .msg-container {
-            min-height: 20px;
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        #login-msg {
-            color: var(--accent-rose);
-            font-size: 13px;
-            font-weight: 500;
         }
 
         /* Toast Notifications */
@@ -316,39 +341,47 @@
         <!-- 1. 登入區塊 -->
         <div id="login-section" class="card">
             <h2>系統核心登入</h2>
-            <div class="subtitle">第四個後端安全驗證端口 • 預設憑證: admin / admin123</div>
+            <div class="subtitle"></div>
 
             <div class="input-group">
                 <label for="username">使用者帳號</label>
-                <input type="text" id="username" placeholder="請輸入您的管理員帳號">
+                <input type="text" id="username" placeholder="請輸入您的帳號 (如 member_a)">
             </div>
 
             <div class="input-group">
                 <label for="password">安全密碼</label>
-                <input type="password" id="password" placeholder="請輸入管理密碼">
+                <input type="password" id="password" placeholder="請輸入密碼">
             </div>
 
             <button onclick="handleLogin()">
                 <span>驗證並登入系統</span>
             </button>
-            <div class="msg-container">
-                <p id="login-msg"></p>
+            <div style="min-height: 20px; margin-top: 12px; text-align: center;">
+                <p id="login-msg" style="color: var(--accent-rose); font-size: 13px; font-weight: 500;"></p>
             </div>
         </div>
 
         <!-- 2. 主內容區塊 (登入後顯示) -->
         <div id="main-section" class="card hidden">
-            <h2>團隊成員自我介紹</h2>
+            <div class="header-row">
+                <h2>團隊成員自我介紹</h2>
+                <div class="user-badge">登入者: <strong id="logged-user-name">--</strong></div>
+            </div>
             <div class="subtitle">連線至個別微服務容器並寫入 PostgreSQL 共用資料庫</div>
 
             <!-- 切換成員後端按鈕 -->
             <div class="btn-group">
-                <button class="member-btn" onclick="switchMember(8001, this)">同學 A (Port 8001)</button>
-                <button class="member-btn" onclick="switchMember(8002, this)">同學 B (Port 8002)</button>
-                <button class="member-btn" onclick="switchMember(8003, this)">同學 C (Port 8003)</button>
+                <button class="member-btn" onclick="switchMember(8001, this, 'member_a')">同學 A (Port 8001)</button>
+                <button class="member-btn" onclick="switchMember(8002, this, 'member_b')">同學 B (Port 8002)</button>
+                <button class="member-btn" onclick="switchMember(8003, this, 'member_c')">同學 C (Port 8003)</button>
             </div>
 
             <hr>
+
+            <!-- 權限警告 -->
+            <div id="permission-warning" class="permission-warning hidden">
+                🔒 唯讀模式
+            </div>
 
             <!-- 顯示/修改自我介紹 -->
             <div id="intro-display">
@@ -379,6 +412,7 @@
         // 核心系統後端網址 (Port 8000)
         const SYSTEM_URL = 'http://localhost:8000';
         let currentMemberPort = null;
+        let currentUser = null;
 
         // 顯示 Custom Toast 訊息
         function showToast(message, type = 'success') {
@@ -386,10 +420,9 @@
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
 
-            // 根據類型使用 SVG 圖標
             let icon = '';
             if (type === 'success') {
-                icon = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="${type === 'success' ? '#10b981' : '#f43f5e'}"/></svg>`;
+                icon = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="#10b981"/></svg>`;
             } else {
                 icon = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="#f43f5e"/></svg>`;
             }
@@ -397,19 +430,16 @@
             toast.innerHTML = `${icon} <span>${message}</span>`;
             container.appendChild(toast);
 
-            // 3秒後自動移除並加上滑出動畫
             setTimeout(() => {
                 toast.style.animation = 'toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
+                setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
         // 處理登入 (呼叫第 4 個核心後端)
         async function handleLogin() {
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value.trim();
             const loginMsg = document.getElementById('login-msg');
 
             loginMsg.innerText = '';
@@ -423,9 +453,10 @@
                 const data = await res.json();
 
                 if (res.ok) {
-                    showToast('系統安全驗證成功！', 'success');
+                    currentUser = data.username || u;
+                    document.getElementById('logged-user-name').innerText = currentUser;
+                    showToast(`歡迎 ${currentUser}！身分驗證成功`, 'success');
 
-                    // 淡出 login-section 並顯示 main-section
                     const loginSec = document.getElementById('login-section');
                     const mainSec = document.getElementById('main-section');
 
@@ -437,9 +468,13 @@
                         loginSec.classList.add('hidden');
                         mainSec.classList.remove('hidden');
 
-                        // 觸發第一個按鈕點擊，載入同學 A
-                        const firstBtn = document.querySelector('.member-btn');
-                        if (firstBtn) firstBtn.click();
+                        // 依據帳號預設選擇對應按鈕或預設同學A
+                        let targetBtnIndex = 0;
+                        if (currentUser === 'member_b') targetBtnIndex = 1;
+                        if (currentUser === 'member_c') targetBtnIndex = 2;
+
+                        const memberBtns = document.querySelectorAll('.member-btn');
+                        if (memberBtns[targetBtnIndex]) memberBtns[targetBtnIndex].click();
                     }, 400);
                 } else {
                     loginMsg.innerText = data.message || '驗證失敗，請檢查帳號與密碼';
@@ -452,21 +487,44 @@
         }
 
         // 切換成員後端並抓取資料 (呼叫 Port 8001~8003)
-        async function switchMember(port, element) {
+        async function switchMember(port, element, targetMemberId) {
             currentMemberPort = port;
 
             // 切換按鈕高亮狀態
             document.querySelectorAll('.member-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
 
+            // 判斷當前使用者是否有修改權限 (admin 擁有全權，其餘使用者只能修改自己的頁面)
+            const isEditable = (currentUser === 'admin') || (currentUser === targetMemberId);
+
+            const nameInput = document.getElementById('member-name');
+            const bioInput = document.getElementById('member-bio');
+            const skillsInput = document.getElementById('member-skills');
+            const updateBtn = document.querySelector('.btn-update');
+            const permWarning = document.getElementById('permission-warning');
+
+            if (isEditable) {
+                nameInput.disabled = false;
+                bioInput.disabled = false;
+                skillsInput.disabled = false;
+                updateBtn.style.display = 'block';
+                permWarning.classList.add('hidden');
+            } else {
+                nameInput.disabled = true;
+                bioInput.disabled = true;
+                skillsInput.disabled = true;
+                updateBtn.style.display = 'none';
+                permWarning.classList.remove('hidden');
+            }
+
             try {
                 const res = await fetch(`http://localhost:${port}/api/intro`);
                 const data = await res.json();
                 if (res.ok) {
-                    document.getElementById('member-name').value = data.name || '';
-                    document.getElementById('member-bio').value = data.bio || '';
-                    document.getElementById('member-skills').value = data.skills || '';
-                    showToast(`成功讀取 Port ${port} 的成員資料！`, 'success');
+                    nameInput.value = data.name || '';
+                    bioInput.value = data.bio || '';
+                    skillsInput.value = data.skills || '';
+                    showToast(`成功讀取 ${targetMemberId} 資料！`, 'success');
                 } else {
                     showToast('讀取資料失敗', 'error');
                 }
@@ -502,7 +560,7 @@
             }
         }
 
-        // 綁定輸入框 Enter 鍵直接登入
+        // 綁定 Enter 鍵直接登入
         document.getElementById('password').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') handleLogin();
         });

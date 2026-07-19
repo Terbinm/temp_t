@@ -36,13 +36,20 @@ def init_system_db():
         );
     """
     )
-    # 建立一組預設的登入系統帳密
-    cur.execute("SELECT * FROM users WHERE username = 'admin';")
-    if not cur.fetchone():
-        cur.execute(
-            "INSERT INTO users (username, password) VALUES (%s, %s);",
-            ("admin", "admin123"),
-        )
+    # 建立預設帳密 (包含各成員與最高管理員 admin)
+    default_users = [
+        ("admin", "admin123"),
+        ("member_a", "admin123"),
+        ("member_b", "admin123"),
+        ("member_c", "admin123"),
+    ]
+    for u, p in default_users:
+        cur.execute("SELECT * FROM users WHERE username = %s;", (u,))
+        if not cur.fetchone():
+            cur.execute(
+                "INSERT INTO users (username, password) VALUES (%s, %s);",
+                (u, p),
+            )
     conn.commit()
     cur.close()
     conn.close()
@@ -74,6 +81,7 @@ def login():
                 {
                     "status": "success",
                     "message": "系統登入成功！",
+                    "username": user[0],
                     "token": "mock-jwt-token-xyz",
                 }
             ),
