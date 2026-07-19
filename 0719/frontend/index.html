@@ -5,118 +5,411 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>團隊自我介紹共享平台</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #f4f7f6;
-            color: #333;
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --primary-glow: rgba(6, 182, 212, 0.15);
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-rose: #f43f5e;
+            --transition-speed: 0.3s;
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 760px;
+            z-index: 10;
+        }
+
+        /* Glassmorphism Card styling */
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 
+                        0 1px 0 rgba(255, 255, 255, 0.1) inset;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
         }
 
         .hidden {
-            display: none;
+            display: none !important;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        input,
-        textarea,
-        select {
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Inputs */
+        .input-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d1d5db;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0 20px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            padding: 14px 16px;
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
         }
 
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            border-color: var(--accent-cyan);
+            background: rgba(31, 41, 55, 0.8);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Premium Buttons */
         button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--accent-cyan), #0891b2);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            width: 100%;
+            position: relative;
         }
 
         button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+            filter: brightness(1.1);
         }
 
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+            margin-top: 10px;
+        }
+
+        .btn-update:hover {
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Member Tabs */
         .btn-group {
-            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
         .member-btn {
-            background-color: #6c757d;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 14px 10px;
+            font-size: 14px;
+            border-radius: 12px;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .member-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: none;
         }
 
         .member-btn.active {
-            background-color: #28a745;
+            background: linear-gradient(135deg, var(--accent-emerald), #059669);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .member-btn.active:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            margin: 25px 0;
+        }
+
+        /* Error/Info messages styling */
+        .msg-container {
+            min-height: 20px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        #login-msg {
+            color: var(--accent-rose);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            background: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 16px 20px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 280px;
+            max-width: 400px;
+            animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: all 0.3s ease;
+        }
+
+        .toast.error {
+            border-left-color: var(--accent-rose);
+        }
+
+        .toast.success {
+            border-left-color: var(--accent-emerald);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!--
-    <div id="login-section" class="card">
-        <h2>系統核心登入 (第四個後端驗證)</h2>
-        <p style="color: gray; font-size: 13px;">測試帳密：admin / admin123</p>
-        <label>使用者帳號：</label>
-        <input type="text" id="username" placeholder="請輸入帳號">
-        <label>密碼：</label>
-        <input type="password" id="password" placeholder="請輸入密碼">
-        <button onclick="handleLogin()">登入系統</button>
-        <p id="login-msg" style="color: red;"></p>
-    </div>-->
-
-    <!-- 2. 主內容區塊 (登入後顯示) -->
-    <div id="main-section" class="card hidden">
-        <h2>歡迎來到成員自我介紹首頁</h2>
-
-        <!-- 切換成員後端按鈕 -->
-        <div class="btn-group">
-            <button class="member-btn" onclick="switchMember(8001, this)">同學 A (Port 8001)</button>
-            <button class="member-btn" onclick="switchMember(8002, this)">同學 B (Port 8002)</button>
-            <button class="member-btn" onclick="switchMember(8003, this)">同學 C (Port 8003)</button>
+    <div class="container">
+        <!-- 1. 登入區塊 -->
+        <div id="login-section" class="card">
+            <h2>系統核心登入</h2>
+            <div class="subtitle">第四個後端安全驗證端口 • 預設憑證: admin / admin123</div>
+            
+            <div class="input-group">
+                <label for="username">使用者帳號</label>
+                <input type="text" id="username" placeholder="請輸入您的管理員帳號">
+            </div>
+            
+            <div class="input-group">
+                <label for="password">安全密碼</label>
+                <input type="password" id="password" placeholder="請輸入管理密碼">
+            </div>
+            
+            <button onclick="handleLogin()">
+                <span>驗證並登入系統</span>
+            </button>
+            <div class="msg-container">
+                <p id="login-msg"></p>
+            </div>
         </div>
 
-        <hr>
+        <!-- 2. 主內容區塊 (登入後顯示) -->
+        <div id="main-section" class="card hidden">
+            <h2>團隊成員自我介紹</h2>
+            <div class="subtitle">連線至個別微服務容器並寫入 PostgreSQL 共用資料庫</div>
+            
+            <!-- 切換成員後端按鈕 -->
+            <div class="btn-group">
+                <button class="member-btn" onclick="switchMember(8001, this)">同學 A (Port 8001)</button>
+                <button class="member-btn" onclick="switchMember(8002, this)">同學 B (Port 8002)</button>
+                <button class="member-btn" onclick="switchMember(8003, this)">同學 C (Port 8003)</button>
+            </div>
 
-        <!-- 顯示/修改自我介紹 -->
-        <div id="intro-display">
-            <h3>自我介紹資料</h3>
-            <label>姓名：</label>
-            <input type="text" id="member-name">
-            <label>個人簡介：</label>
-            <textarea id="member-bio" rows="4"></textarea>
-            <label>專業技能：</label>
-            <input type="text" id="member-skills">
-            <button onclick="updateMemberData()" style="background-color: #e0a800;">儲存並更新資料</button>
-            <p id="action-msg" style="color: green; font-weight: bold; margin-top: 10px;"></p>
+            <hr>
+
+            <!-- 顯示/修改自我介紹 -->
+            <div id="intro-display">
+                <div class="input-group">
+                    <label for="member-name">姓名</label>
+                    <input type="text" id="member-name" placeholder="請輸入姓名">
+                </div>
+                
+                <div class="input-group">
+                    <label for="member-bio">個人簡介</label>
+                    <textarea id="member-bio" placeholder="告訴大家一些關於你的事..."></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label for="member-skills">專業技能 (用逗號隔開)</label>
+                    <input type="text" id="member-skills" placeholder="例如: Python, Flask, Docker">
+                </div>
+                
+                <button onclick="updateMemberData()" class="btn-update">儲存並更新資料</button>
+            </div>
         </div>
     </div>
+
+    <!-- Toast 容器 -->
+    <div class="toast-container" id="toast-container"></div>
 
     <script>
         // 核心系統後端網址 (Port 8000)
         const SYSTEM_URL = 'http://localhost:8000';
         let currentMemberPort = null;
 
+        // 顯示 Custom Toast 訊息
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            // 根據類型使用 SVG 圖標
+            let icon = '';
+            if (type === 'success') {
+                icon = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z" fill="${type === 'success' ? '#10b981' : '#f43f5e'}"/></svg>`;
+            } else {
+                icon = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="#f43f5e"/></svg>`;
+            }
+            
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+            
+            // 3秒後自動移除並加上滑出動畫
+            setTimeout(() => {
+                toast.style.animation = 'toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
         // 處理登入 (呼叫第 4 個核心後端)
         async function handleLogin() {
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
+            const loginMsg = document.getElementById('login-msg');
+            
+            loginMsg.innerText = '';
 
             try {
                 const res = await fetch(`${SYSTEM_URL}/api/system/login`, {
@@ -127,22 +420,37 @@
                 const data = await res.json();
 
                 if (res.ok) {
-                    document.getElementById('login-section').classList.add('hidden');
-                    document.getElementById('main-section').classList.remove('hidden');
-                    // 預設載入同學 A 的資料
-                    document.querySelector('.member-btn').click();
+                    showToast('系統安全驗證成功！', 'success');
+                    
+                    // 淡出 login-section 並顯示 main-section
+                    const loginSec = document.getElementById('login-section');
+                    const mainSec = document.getElementById('main-section');
+                    
+                    loginSec.style.opacity = '0';
+                    loginSec.style.transform = 'translateY(-20px)';
+                    loginSec.style.transition = 'all 0.4s ease';
+                    
+                    setTimeout(() => {
+                        loginSec.classList.add('hidden');
+                        mainSec.classList.remove('hidden');
+                        
+                        // 觸發第一個按鈕點擊，載入同學 A
+                        const firstBtn = document.querySelector('.member-btn');
+                        if (firstBtn) firstBtn.click();
+                    }, 400);
                 } else {
-                    document.getElementById('login-msg').innerText = data.message;
+                    loginMsg.innerText = data.message || '驗證失敗，請檢查帳號與密碼';
+                    showToast(data.message || '驗證失敗', 'error');
                 }
             } catch (err) {
-                document.getElementById('login-msg').innerText = '無法連線到系統核心後端';
+                loginMsg.innerText = '無法連線到系統核心後端，請確認容器是否啟動';
+                showToast('無法連線到系統核心後端', 'error');
             }
         }
 
         // 切換成員後端並抓取資料 (呼叫 Port 8001~8003)
         async function switchMember(port, element) {
             currentMemberPort = port;
-            document.getElementById('action-msg').innerText = '';
 
             // 切換按鈕高亮狀態
             document.querySelectorAll('.member-btn').forEach(btn => btn.classList.remove('active'));
@@ -155,9 +463,12 @@
                     document.getElementById('member-name').value = data.name || '';
                     document.getElementById('member-bio').value = data.bio || '';
                     document.getElementById('member-skills').value = data.skills || '';
+                    showToast(`成功讀取 Port ${port} 的成員資料！`, 'success');
+                } else {
+                    showToast('讀取資料失敗', 'error');
                 }
             } catch (err) {
-                alert(`無法連線至該成員的後端 (Port ${port})`);
+                showToast(`無法連線至該成員的後端 (Port ${port})`, 'error');
             }
         }
 
@@ -179,14 +490,19 @@
                 });
                 const data = await res.json();
                 if (res.ok) {
-                    document.getElementById('action-msg').innerText = '儲存成功！已將資料寫入 PostgreSQL！';
+                    showToast('儲存成功！已將資料同步寫入 PostgreSQL！', 'success');
                 } else {
-                    document.getElementById('action-msg').innerText = '儲存失敗';
+                    showToast('儲存失敗', 'error');
                 }
             } catch (err) {
-                alert('更新資料時發生錯誤');
+                showToast('更新資料時發生錯誤，請確認網路連線', 'error');
             }
         }
+        
+        // 綁定輸入框 Enter 鍵直接登入
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleLogin();
+        });
     </script>
 </body>
 
