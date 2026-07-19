@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>團隊自我介紹共享平台</title>
     <!-- Google Fonts: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -31,7 +32,7 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
             color: var(--text-primary);
@@ -57,8 +58,8 @@
             border: 1px solid var(--card-border);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 
-                        0 1px 0 rgba(255, 255, 255, 0.1) inset;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5),
+                0 1px 0 rgba(255, 255, 255, 0.1) inset;
             transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
             position: relative;
             overflow: hidden;
@@ -281,6 +282,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -292,6 +294,7 @@
                 opacity: 0;
                 transform: translateX(100px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -314,17 +317,17 @@
         <div id="login-section" class="card">
             <h2>系統核心登入</h2>
             <div class="subtitle">第四個後端安全驗證端口 • 預設憑證: admin / admin123</div>
-            
+
             <div class="input-group">
                 <label for="username">使用者帳號</label>
                 <input type="text" id="username" placeholder="請輸入您的管理員帳號">
             </div>
-            
+
             <div class="input-group">
                 <label for="password">安全密碼</label>
                 <input type="password" id="password" placeholder="請輸入管理密碼">
             </div>
-            
+
             <button onclick="handleLogin()">
                 <span>驗證並登入系統</span>
             </button>
@@ -337,7 +340,7 @@
         <div id="main-section" class="card hidden">
             <h2>團隊成員自我介紹</h2>
             <div class="subtitle">連線至個別微服務容器並寫入 PostgreSQL 共用資料庫</div>
-            
+
             <!-- 切換成員後端按鈕 -->
             <div class="btn-group">
                 <button class="member-btn" onclick="switchMember(8001, this)">同學 A (Port 8001)</button>
@@ -353,17 +356,17 @@
                     <label for="member-name">姓名</label>
                     <input type="text" id="member-name" placeholder="請輸入姓名">
                 </div>
-                
+
                 <div class="input-group">
                     <label for="member-bio">個人簡介</label>
                     <textarea id="member-bio" placeholder="告訴大家一些關於你的事..."></textarea>
                 </div>
-                
+
                 <div class="input-group">
                     <label for="member-skills">專業技能 (用逗號隔開)</label>
                     <input type="text" id="member-skills" placeholder="例如: Python, Flask, Docker">
                 </div>
-                
+
                 <button onclick="updateMemberData()" class="btn-update">儲存並更新資料</button>
             </div>
         </div>
@@ -382,7 +385,7 @@
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            
+
             // 根據類型使用 SVG 圖標
             let icon = '';
             if (type === 'success') {
@@ -390,10 +393,10 @@
             } else {
                 icon = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="#f43f5e"/></svg>`;
             }
-            
+
             toast.innerHTML = `${icon} <span>${message}</span>`;
             container.appendChild(toast);
-            
+
             // 3秒後自動移除並加上滑出動畫
             setTimeout(() => {
                 toast.style.animation = 'toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards';
@@ -408,7 +411,7 @@
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
             const loginMsg = document.getElementById('login-msg');
-            
+
             loginMsg.innerText = '';
 
             try {
@@ -421,19 +424,19 @@
 
                 if (res.ok) {
                     showToast('系統安全驗證成功！', 'success');
-                    
+
                     // 淡出 login-section 並顯示 main-section
                     const loginSec = document.getElementById('login-section');
                     const mainSec = document.getElementById('main-section');
-                    
+
                     loginSec.style.opacity = '0';
                     loginSec.style.transform = 'translateY(-20px)';
                     loginSec.style.transition = 'all 0.4s ease';
-                    
+
                     setTimeout(() => {
                         loginSec.classList.add('hidden');
                         mainSec.classList.remove('hidden');
-                        
+
                         // 觸發第一個按鈕點擊，載入同學 A
                         const firstBtn = document.querySelector('.member-btn');
                         if (firstBtn) firstBtn.click();
@@ -498,9 +501,9 @@
                 showToast('更新資料時發生錯誤，請確認網路連線', 'error');
             }
         }
-        
+
         // 綁定輸入框 Enter 鍵直接登入
-        document.getElementById('password').addEventListener('keypress', function(e) {
+        document.getElementById('password').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') handleLogin();
         });
     </script>
