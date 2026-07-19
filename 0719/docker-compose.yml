@@ -1,0 +1,109 @@
+version: '3.8'
+
+services:
+  # 1. 共享的 PostgreSQL 資料庫
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: shared_postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: intro_project
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # 2. 共享的前端網頁 (透過 Nginx 容器提供服務)
+  frontend:
+    build: ./frontend
+    container_name: shared_frontend
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend-system
+      - backend-1
+      - backend-2
+      - backend-3
+
+  # 3. 系統核心後端（第四個後端：負責登入驗證與系統級資料查詢）
+  backend-system:
+    build: ./backend-system
+    container_name: system_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASSWORD=password123
+      - DB_NAME=intro_project
+    networks:
+      - app-network
+    depends_on:
+      - postgres-db
+
+  # 4. 同學 A 的個人後端
+  backend-1:
+    build: ./backend-1
+    container_name: member_a_backend
+    ports:
+      - "8001:8000"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASSWORD=password123
+      - DB_NAME=intro_project
+      - TABLE_NAME=member_a_intro
+    networks:
+      - app-network
+    depends_on:
+      - postgres-db
+
+  # 5. 同學 B 的個人後端
+  backend-2:
+    build: ./backend-2
+    container_name: member_b_backend
+    ports:
+      - "8002:8000"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASSWORD=password123
+      - DB_NAME=intro_project
+      - TABLE_NAME=member_b_intro
+    networks:
+      - app-network
+    depends_on:
+      - postgres-db
+
+  # 6. 同學 C 的個人後端
+  backend-3:
+    build: ./backend-3
+    container_name: member_c_backend
+    ports:
+      - "8003:8000"
+    environment:
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASSWORD=password123
+      - DB_NAME=intro_project
+      - TABLE_NAME=member_c_intro
+    networks:
+      - app-network
+    depends_on:
+      - postgres-db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
