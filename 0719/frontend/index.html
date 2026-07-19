@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>團隊自我介紹共享平台</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f4f7f6; color: #333; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .hidden { display: none; }
+        input, textarea, select { width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px; }
+        button:hover { background-color: #0056b3; }
+        .btn-group { margin-bottom: 20px; }
+        .member-btn { background-color: #6c757d; }
+        .member-btn.active { background-color: #28a745; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 登入區塊 -->
+    <div id="login-section" class="card">
+        <h2>系統核心登入 (第四個後端驗證)</h2>
+        <p style="color: gray; font-size: 13px;">測試帳密：admin / admin123</p>
+        <label>使用者帳號：</label>
+        <input type="text" id="username" placeholder="請輸入帳號">
+        <label>密碼：</label>
+        <input type="password" id="password" placeholder="請輸入密碼">
+        <button onclick="handleLogin()">登入系統</button>
+        <p id="login-msg" style="color: red;"></p>
+    </div>
+
+    <!-- 2. 主內容區塊 (登入後顯示) -->
+    <div id="main-section" class="card hidden">
+        <h2>歡迎來到成員自我介紹首頁</h2>
+        
+        <!-- 切換成員後端按鈕 -->
+        <div class="btn-group">
+            <button class="member-btn" onclick="switchMember(8001, this)">同學 A (Port 8001)</button>
+            <button class="member-btn" onclick="switchMember(8002, this)">同學 B (Port 8002)</button>
+            <button class="member-btn" onclick="switchMember(8003, this)">同學 C (Port 8003)</button>
+        </div>
+
+        <hr>
+
+        <!-- 顯示/修改自我介紹 -->
+        <div id="intro-display">
+            <h3>自我介紹資料</h3>
+            <label>姓名：</label>
+            <input type="text" id="member-name">
+            <label>個人簡介：</label>
+            <textarea id="member-bio" rows="4"></textarea>
+            <label>專業技能：</label>
+            <input type="text" id="member-skills">
+            <button onclick="updateMemberData()" style="background-color: #e0a800;">儲存並更新資料</button>
+            <p id="action-msg" style="color: green; font-weight: bold; margin-top: 10px;"></p>
+        </div>
+    </div>
+
+    <script>
+        // 核心系統後端網址 (Port 8000)
+        const SYSTEM_URL = 'http://localhost:8000';
+        let currentMemberPort = null;
+
+        // 處理登入 (呼叫第 4 個核心後端)
+        async function handleLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            
+            try {
+                const res = await fetch(`${SYSTEM_URL}/api/system/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: u, password: p })
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    document.getElementById('login-section').classList.add('hidden');
+                    document.getElementById('main-section').classList.remove('hidden');
+                    // 預設載入同學 A 的資料
+                    document.querySelector('.member-btn').click();
+                } else {
+                    document.getElementById('login-msg').innerText = data.message;
+                }
+            } catch (err) {
+                document.getElementById('login-msg').innerText = '無法連線到系統核心後端';
+            }
+        }
+
+        // 切換成員後端並抓取資料 (呼叫 Port 8001~8003)
+        async function switchMember(port, element) {
+            currentMemberPort = port;
+            document.getElementById('action-msg').innerText = '';
+            
+            // 切換按鈕高亮狀態
+            document.querySelectorAll('.member-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            try {
+                const res = await fetch(`http://localhost:${port}/api/intro`);
+                const data = await res.json();
+                if (res.ok) {
+                    document.getElementById('member-name').value = data.name || '';
+                    document.getElementById('member-bio').value = data.bio || '';
+                    document.getElementById('member-skills').value = data.skills || '';
+                }
+            } catch (err) {
+                alert(`無法連線至該成員的後端 (Port ${port})`);
+            }
+        }
+
+        // 修改並儲存該成員的自我介紹 (呼叫對應的個人 Port)
+        async function updateMemberData() {
+            if (!currentMemberPort) return;
+            
+            const payload = {
+                name: document.getElementById('member-name').value,
+                bio: document.getElementById('member-bio').value,
+                skills: document.getElementById('member-skills').value
+            };
+
+            try {
+                const res = await fetch(`http://localhost:${currentMemberPort}/api/intro`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    document.getElementById('action-msg').innerText = '儲存成功！已將資料寫入 PostgreSQL！';
+                } else {
+                    document.getElementById('action-msg').innerText = '儲存失敗';
+                }
+            } catch (err) {
+                alert('更新資料時發生錯誤');
+            }
+        }
+    </script>
+</body>
+</html>
