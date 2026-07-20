@@ -1,0 +1,48 @@
+
+開始路徑： cd {{project_root}}/path_test/A/甲
+[檔案路徑] C:\localfiles\t\path_test\B\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\B\乙\2.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\B\丙\1.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+
+answer：
+1.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/A/甲$ python ../../B/甲/3.py
+[檔案路徑] /home/willy/temp_t/path_test/B/甲/3.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/A/甲
+
+2.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/A/甲$ python ../../B/乙/2.py
+[檔案路徑] /home/willy/temp_t/path_test/B/乙/2.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/A/甲
+
+3.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/A/甲$ python ../../B/丙/1.py
+[檔案路徑] /home/willy/temp_t/path_test/B/丙/1.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/A/甲
+---
+開始路徑： cd {{project_root}}/path_test/A/甲
+[檔案路徑] C:\localfiles\t\path_test\C\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\B\乙\2.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\B\乙
+[檔案路徑] C:\localfiles\t\path_test\A\丙\1.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\C\丙
+
+answer：
+1.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/A/甲$ python ../../C/甲/3.py
+[檔案路徑] /home/willy/temp_t/path_test/C/甲/3.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/A/甲
+
+2.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/A/甲$ cd ../../B/乙
+(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/B/乙$ python 2.py
+[檔案路徑] /home/willy/temp_t/path_test/B/乙/2.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/B/乙
+
+3.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/C/丙$ python ../../A/丙/1.py
+[檔案路徑] /home/willy/temp_t/path_test/A/丙/1.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/C/丙
+---
+開始路徑： cd {{project_root}}/path_test/A/甲
+[檔案路徑] C:\localfiles\t\path_test\A\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\A\甲
+[檔案路徑] C:\localfiles\t\path_test\A\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\B\乙
+[檔案路徑] C:\localfiles\t\path_test\A\甲\3.py  |  [執行路徑 CWD] C:\localfiles\t\path_test\C\丙
+
+answer：
+1.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/A/甲$ python 3.py
+[檔案路徑] /home/willy/temp_t/path_test/A/甲/3.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/A/甲
+
+2.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/B/乙$ python ../../A/甲/3.py
+[檔案路徑] /home/willy/temp_t/path_test/A/甲/3.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/B/乙
+
+3.(py3.10-pt2.2) willy@MSI:~/temp_t/path_test/C/丙$ python ../../A/甲/3.py
+[檔案路徑] /home/willy/temp_t/path_test/A/甲/3.py  |  [執行路徑 CWD] /home/willy/temp_t/path_test/C/丙
+
+---
